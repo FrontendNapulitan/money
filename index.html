@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Banconota rubata</title>
+    <script type="text/javascript">
+      /*! ecb - v2.0.0 - European Central Bank */
+      var ECB = window.ECB || {};
+      ECB.slow = ECB.slow || {}
+    </script>
+    <link rel="stylesheet" type="text/css" href="shared/dist/css/require/flickity.min.css" >
+    <link rel="stylesheet" href="shared/dist/plugins/banknotes/banknotes.min.css">
+    <link rel="stylesheet" href="shared/dist/css/main-ecb.min.css">
+  </head>
+  <body>
+
+    <main>
+      <!-- converted at 2020-06-02_15:15:30 -->
+      <div class="title"></div>
+      <div class="bn-denominations-container">
+        <div class="bn-tabs">
+          <div class="bn-centered-tabs" style="visibility: hidden;">
+            <a id="series2" class="is-active">Serie Europa</a>
+            <a id="series1">Prima serie</a>
+          </div>
+          <div class="bn-tabs-content" >
+            <div class="is-active">
+              <div class="banknotes-slider" >
+                <div
+                  class="items europa-series flickity-enabled is-draggable"
+                  tabindex="0"
+                >
+                      <div
+                        class="item "
+                        
+                      >
+                        <a id="es2-005" class="no-icon">
+                          <span>
+                            <img
+                              src="shared/dist/plugins/banknotes/img/carousel-thumbs/5euro_fr_ES2_thumb.png"
+                            />
+                          </span>
+                        </a>
+                      </div>
+                      <div
+                        class="item "
+                      >
+                        <a id="es2-010" class="no-icon">
+                          <span>
+                            <img
+                              src="shared/dist/plugins/banknotes/img/carousel-thumbs/10euro_fr_ES2_thumb.png"
+                            />
+                          </span>
+                        </a>
+                      </div>
+                      <div
+                        class="item "
+                      >
+                        <a id="es2-020" class="no-icon">
+                          <span>
+                            <img
+                              src="shared/dist/plugins/banknotes/img/carousel-thumbs/20euro_fr_ES2_thumb.png"
+                            />
+                          </span>
+                        </a>
+                      </div>
+                      <div
+                        class="item"
+                      >
+                        <a id="es2-050" class="no-icon">
+                          <span>
+                            <img
+                              src="shared/dist/plugins/banknotes/img/carousel-thumbs/50euro_fr_ES2_thumb.png"
+                            />
+                          </span>
+                        </a>
+                      </div>
+                      <div
+                        class="item "
+                      >
+                        <a id="es2-100" class="no-icon">
+                          <span class="is_selected">
+                            <img
+                              src="shared/dist/plugins/banknotes/img/carousel-thumbs/100euro_fr_ES2_thumb.png"
+                            />
+                          </span>
+                        </a>
+                      </div>
+                      <div
+                        class="item"
+                      >
+                        <a id="es2-200" class="no-icon">
+                          <span>
+                            <img
+                              src="shared/dist/plugins/banknotes/img/carousel-thumbs/200euro_fr_ES2_thumb.png"
+                            />
+                          </span>
+                        </a>
+                    </div>
+                  
+               
+                </div>
+              </div>
+              <div class="banknote-view" style="background: transparent">
+                <!-- <div class="arrow-down-element"></div> -->
+                <div class="display-view">
+                  <div id="bn-display-es2">
+                    <div class="spinny-image" data-rotation="245">
+                      <canvas
+                        width="1800"
+                        height="1200"
+                        style="width: 900px; height: 600px"
+                      ></canvas>
+                    </div>
+                  </div>
+                </div>
+                <img
+                  class="spinny-loader"
+                  src="shared/dist/plugins/banknotes/img/3d-assets/LoadingSeq_bg.gif"
+                  style="opacity: 1.38778e-16"
+                />
+                <!-- <div class="bn-flip-icon">
+                    <img src="shared/dist/plugins/banknotes/img/3d-assets/360-icon.png">
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script id="vertexShader" type="x-shader/x-vertex">
+
+        varying vec3 n;
+        varying vec3 v;
+        varying vec2 texCoord;
+        varying vec2 vUv;
+        uniform float uDisp;
+
+        void main() {
+            vUv = uv;
+
+        // 	Get the angles from the hypotenuse
+            float h = position.x * position.x + position.y;
+            float ds = sin(uDisp * h);
+            float dc = cos(uDisp * h);
+
+        // 	Apply the displacement
+            vec3 newPos = position * mat3(	dc,  0, ds,
+                                            0,  1,  0,
+                                            -ds, 0, dc);
+
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(newPos, 1.0);
+            n = normalMatrix * normal;
+            vec3 p = (modelMatrix * vec4(position, 1)).xyz;
+            v = normalize(p - cameraPosition);
+            texCoord = uv;
+        }
+      </script>
+    </main>
+    <script type="text/javascript" src="shared/dist/js/require/flickity.pkgd.min.js"></script>
+    <script type="text/javascript" async="" src="shared/dist/js/slow.min.js"></script>
+    <script src="shared/dist/plugins/banknotes/banknotes.min.js"></script>
+  </body>
+</html>
